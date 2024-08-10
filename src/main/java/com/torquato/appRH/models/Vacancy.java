@@ -19,7 +19,7 @@ public class Vacancy implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long code;
 	
 	private String name;
 	private String description;
@@ -33,9 +33,9 @@ public class Vacancy implements Serializable {
 
 	}
 
-	public Vacancy(Long id, String name, String description, Date date, String salary, List<Candidate> candidates) {
+	public Vacancy(Long code, String name, String description, Date date, String salary, List<Candidate> candidates) {
 		super();
-		this.id = id;
+		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.date = date;
@@ -43,12 +43,12 @@ public class Vacancy implements Serializable {
 		this.candidates = candidates;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getCode() {
+		return code;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCode(Long id) {
+		this.code = id;
 	}
 
 	public String getName() {
