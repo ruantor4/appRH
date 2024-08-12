@@ -47,10 +47,10 @@ public class VacancyController {
 	// #LISTAR VAGAS
 
 	@GetMapping("/vagas")
-	public ModelAndView listarVaga() {
+	public ModelAndView listaVaga() {
 		ModelAndView mv = new ModelAndView("vaga/listaVaga");
-		Iterable<Vacancy> vacancy = vr.findAll();
-		mv.addObject("vacancy", vacancy);
+		Iterable<Vacancy> vacancies = vr.findAll();
+		mv.addObject("vacancies", vacancies);
 		return mv;
 
 	}
@@ -69,10 +69,19 @@ public class VacancyController {
 		return mv;
 	}
 
+	// #DELETAR VAGA
+
+	@GetMapping("/deletarVaga")
+	public String deletarVaga(Long code) {
+		Vacancy vacancy = vr.findByCode(code);
+		vr.delete(vacancy);
+		return "redirect:/vagas";
+	}
+
 	// #ADICIONANDO CANDIDATO A VAGA
 
 	@PostMapping("/{code}")
-	public String detalhesVaga(@PathVariable Long code, @Validated Candidate candidate, BindingResult result,
+	public String detalhesVagaPost(@PathVariable Long code, @Validated Candidate candidate, BindingResult result,
 			RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
@@ -82,7 +91,7 @@ public class VacancyController {
 
 		// RG VALIDAÇÃO
 		if (cr.findByRg(candidate.getRg()) != null) {
-			attributes.addFlashAttribute("mensagem", "RG duplicado, insira novamente");
+			attributes.addFlashAttribute("mensagem_erro", "RG duplicado, insira novamente");
 			return "redirect:/{code}";
 		}
 
@@ -92,15 +101,6 @@ public class VacancyController {
 		attributes.addFlashAttribute("mensagem", "Candidato adicionado com sucesso!");
 
 		return "redirect:/{code}";
-	}
-
-	// #DELETAR VAGA
-
-	@GetMapping("/deletarVaga")
-	public String deletarVaga(Long code) {
-		Vacancy vacancy = vr.findByCode(code);
-		vr.delete(vacancy);
-		return "redirect:/vagas";
 	}
 
 	// #DELETAR CANDIDATO RG
@@ -125,23 +125,16 @@ public class VacancyController {
 		mv.addObject("vacancy", vacancy);
 		return mv;
 	}
-	
+
 	@PostMapping("/editar-vaga")
 	public String updateVaga(@Validated Vacancy vacancy, BindingResult result, RedirectAttributes attributes) {
 		vr.save(vacancy);
 		attributes.addFlashAttribute("success", "Vaga alterada com sucesso!");
-		
+
 		long codeLong = vacancy.getCode();
 		String code = "" + codeLong;
-		
+
 		return "redirect:/" + code;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

@@ -1,7 +1,6 @@
 package com.torquato.appRH.models;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -23,7 +22,7 @@ public class Vacancy implements Serializable {
 	
 	private String name;
 	private String description;
-	private Date date;
+	private String date;
 	private String salary;
 	
 	@OneToMany(mappedBy = "vacancy", cascade = CascadeType.REMOVE)
@@ -33,7 +32,7 @@ public class Vacancy implements Serializable {
 
 	}
 
-	public Vacancy(Long code, String name, String description, Date date, String salary, List<Candidate> candidates) {
+	public Vacancy(Long code, String name, String description, String date, String salary, List<Candidate> candidates) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -67,11 +66,11 @@ public class Vacancy implements Serializable {
 		this.description = description;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
