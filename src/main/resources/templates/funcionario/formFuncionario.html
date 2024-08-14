@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=”pt-br” xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 
@@ -11,9 +11,6 @@
 
 	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- Bootstrap para testes, apagar depois que configurar thymeleaf-->
-	<link href="funcionario/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- HTML5 shim e Respond.js para suporte no IE8 de elementos HTML5 e media queries -->
 	<!-- ALERTA: Respond.js não funciona se você visualizar uma página file:// -->
@@ -39,7 +36,7 @@
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="/funcionarios">
-								< Funcionários > 
+								< Funcionários >
 							</a></li>
 						<li class="nav-item"><a class="nav-link" href="/cadastrarFuncionario">
 								< Cadastrar Funcionário >
@@ -51,6 +48,7 @@
 						<li class="nav-item"><a class="nav-link" href="/cadastrarVaga">
 								< Cadastrar Vaga >
 							</a></li>
+
 					</ul>
 				</div>
 			</div>
@@ -58,56 +56,70 @@
 
 	</header>
 
+
+
 	<div class="container">
-		<br> <br>
 
-		<div class="row">
-			<div class="col">
-				<div class="card text-center">
-					<div class="card-header card-title">
-						<h3>Funcionários</h3>
-					</div>
-					<div class="card-body">
+		<h1>Cadastro de Funcionário</h1>
 
-						<p class="card-text">Módulo responsável pelos funcionários da
-							agência de RH.</p>
-						<a href="/funcionarios" class="btn btn-primary">Listar
-							Funcionários</a> <a href="/cadastrarFuncionario" class="btn btn-success">Cadastrar
-							Funcionário</a>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card text-center">
-					<div class="card-header  card-title">
-						<h3>Vagas</h3>
-					</div>
-					<div class="card-body">
-						<p class="card-text">Módulo responsável pelas vagas ofertadas
-							pela agência de RH.</p>
-						<a href="/vagas" class="btn btn-primary">Listar Vagas</a> <a href="/cadastrarVaga"
-							class="btn btn-success">Cadastrar Vagas</a>
-					</div>
-				</div>
+		<br>
+
+		<th:block th:include="mensagemValidacao"></th:block>
+
+		<form method="post">
+
+			<div class="form-group">
+				<label for=""><b>Nome:</b> </label> <input type="text" class="form-control" value=""
+					placeholder="Insira o nome do funcionário" name="name" required>
+				<small class="form-text text-muted"><i>* Nome completo.</i></small>
 			</div>
 
+			<div class="row">
+				<div class="col">
 
-		</div>
+					<div class="form-group">
+						<label for=""><b>Data de nascimento:</b></label> <input type="date" value="" name="date"
+							class="form-control" required />
+						<small class="form-text text-muted"><i>* Dia/Mês/Ano.</i></small>
+					</div>
+				</div>
+				<div class="col">
+					<label for=""><b>E-mail:</b> </label> <input type="text" value="" name="email" class="form-control"
+						placeholder="email@email.com" required />
+				</div>
 
-		<div style="height: 100px;"></div>
+			</div>
+			<button type="submit" class="btn btn-success">Adicionar
+				Funcionário</button>
+	</div>
+
+	<br>
+	<br>
+
+	</form>
 
 
-		<div class="footer-copyright fixed-bottom bg-dark text-center py-3">
-			<span class="text-light align-middle">| App RH - UC 12 | - ©
-				2022 Copyright: CTM Supervisão de Educação Online</span>
-		</div>
+	</div>
 
-		<!--JavaScript bootstrap-->
-		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
 
-			</script>
+
+	<div style="height: 100px;"></div>
+
+	<div class="footer-copyright fixed-bottom bg-dark text-center py-3">
+		<span class="text-light align-middle">| App RH - UC 12 | - ©
+			2022 Copyright: CTM Supervisão de Educação Online</span>
+	</div>
+
+
+
+	<!--JavaScript bootstrap-->
+	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+
+		</script>
+
+
 </body>
 
 </html>

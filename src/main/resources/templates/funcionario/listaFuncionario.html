@@ -7,13 +7,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>| App RH - UC 12 |</title>
+	<title>App RH</title>
 
 	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- Bootstrap para testes, apagar depois que configurar thymeleaf-->
-	<link href="funcionario/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- HTML5 shim e Respond.js para suporte no IE8 de elementos HTML5 e media queries -->
 	<!-- ALERTA: Respond.js não funciona se você visualizar uma página file:// -->
@@ -22,9 +19,12 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+	<title>| App RH - UC 12 |</title>
+
 </head>
 
 <body>
+
 
 	<header>
 
@@ -39,7 +39,7 @@
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="/funcionarios">
-								< Funcionários > 
+								< Funcionários >
 							</a></li>
 						<li class="nav-item"><a class="nav-link" href="/cadastrarFuncionario">
 								< Cadastrar Funcionário >
@@ -51,6 +51,7 @@
 						<li class="nav-item"><a class="nav-link" href="/cadastrarVaga">
 								< Cadastrar Vaga >
 							</a></li>
+
 					</ul>
 				</div>
 			</div>
@@ -58,49 +59,54 @@
 
 	</header>
 
+
 	<div class="container">
-		<br> <br>
 
-		<div class="row">
-			<div class="col">
-				<div class="card text-center">
-					<div class="card-header card-title">
-						<h3>Funcionários</h3>
-					</div>
-					<div class="card-body">
+		<h1>Lista interna de funcionários</h1>
 
-						<p class="card-text">Módulo responsável pelos funcionários da
-							agência de RH.</p>
-						<a href="/funcionarios" class="btn btn-primary">Listar
-							Funcionários</a> <a href="/cadastrarFuncionario" class="btn btn-success">Cadastrar
-							Funcionário</a>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card text-center">
-					<div class="card-header  card-title">
-						<h3>Vagas</h3>
-					</div>
-					<div class="card-body">
-						<p class="card-text">Módulo responsável pelas vagas ofertadas
-							pela agência de RH.</p>
-						<a href="/vagas" class="btn btn-primary">Listar Vagas</a> <a href="/cadastrarVaga"
-							class="btn btn-success">Cadastrar Vagas</a>
-					</div>
-				</div>
-			</div>
+		<br>
 
+		<table class="table table-hover table-responsive w-auto table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Nome:</th>
+					<th scope="col">Data de nascimento:</th>
+					<th scope="col">E-mail:</th>
+					<th scope="col"></th>
+					<th scope="col">Ação</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="employee : ${employees}">
 
-		</div>
+					<td><a th:href="${(#mvc.url('EC#dependentes').arg(0, employee.id)).build()}"><span
+								th:text="${employee.name}"></span></a></td>
+					<td><span th:text="${employee.date}"></span></td>
+					<td><span th:text="${employee.email}"></span></td>
+					<td><a th:href="${(#mvc.url('EC#deletarFuncionario').arg(0, employee.id)).build()}"
+							class="waves-effect waves-light btn-small"><button type="button"
+								class="btn btn-danger">Excluir</button></a></td>
+					<td><a th:href="${(#mvc.url('EC#editarFuncionario').arg(0, employee.id)).build()}"><button
+								type="button" class="btn btn-primary">Editar</button></a></td>
+
+					<td><a th:href="${(#mvc.url('EC#dependentes').arg(0, employee.id)).build()}"><button type="button"
+								class="btn btn-success">Adicionar
+								dependente</button></a></td>
+
+				</tr>
+			</tbody>
+		</table>
+
 
 		<div style="height: 100px;"></div>
-
 
 		<div class="footer-copyright fixed-bottom bg-dark text-center py-3">
 			<span class="text-light align-middle">| App RH - UC 12 | - ©
 				2022 Copyright: CTM Supervisão de Educação Online</span>
 		</div>
+
+
 
 		<!--JavaScript bootstrap-->
 		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>

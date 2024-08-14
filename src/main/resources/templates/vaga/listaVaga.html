@@ -39,11 +39,18 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="/funcionarios">
+								< Funcionários >
+							</a></li>
+						<li class="nav-item"><a class="nav-link" href="/cadastrarFuncionario">
+								< Cadastrar Funcionário >
+							</a>
+						</li>
 						<li class="nav-item"><a class="nav-link" href="/vagas">
-								Listar Vagas
+								< Listar Vagas >
 							</a></li>
 						<li class="nav-item"><a class="nav-link" href="/cadastrarVaga">
-								Cadastrar Vaga
+								< Cadastrar Vaga >
 							</a></li>
 
 					</ul>
@@ -75,13 +82,16 @@
 			<tbody>
 				<tr th:each="vacancy: ${vacancies}">
 					<td><a th:href="${(#mvc.url('VC#detalhesVaga').arg(0, vacancy.code)).build()}">
-					<span th:text="${vacancy.name}"></span></a></td>
+							<span th:text="${vacancy.name}"></span></a></td>
 					<td><span th:text="${vacancy.description}"></span></td>
 					<td>R$ <span th:text="${vacancy.salary}"></span></td>
 					<td><span th:text="${vacancy.date}"></span></td>
-					<td><a th:href="${(#mvc.url('VC#deletarVaga').arg(0, vacancy.code)).build()}"><button type="button" class="btn btn-danger">Excluir</button></a></td>
-					<td><a th:href="${(#mvc.url('VC#editarVaga').arg(0, vacancy.code)).build()}"><button type="button" class="btn btn-primary">Editar</button></a></td>
-					<td><a th:href="${(#mvc.url('VC#detalhesVaga').arg(0, vacancy.code)).build()}"><button type="button" class="btn btn-success">Adicionar candidato</button></a></td>
+					<td><a th:href="${(#mvc.url('VC#deletarVaga').arg(0, vacancy.code)).build()}"><button type="button"
+								class="btn btn-danger">Excluir</button></a></td>
+					<td><a th:href="${(#mvc.url('VC#editarVaga').arg(0, vacancy.code)).build()}"><button type="button"
+								class="btn btn-primary">Editar</button></a></td>
+					<td><a th:href="${(#mvc.url('VC#detalhesVaga').arg(0, vacancy.code)).build()}"><button type="button"
+								class="btn btn-success">Adicionar candidato</button></a></td>
 				</tr>
 			</tbody>
 		</table>

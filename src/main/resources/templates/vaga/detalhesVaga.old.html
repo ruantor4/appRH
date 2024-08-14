@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang=”pt-br” xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
@@ -39,12 +38,18 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-
+						<li class="nav-item"><a class="nav-link" href="/funcionarios">
+								< Funcionários >
+							</a></li>
+						<li class="nav-item"><a class="nav-link" href="/cadastrarFuncionario">
+								< Cadastrar Funcionário >
+							</a>
+						</li>
 						<li class="nav-item"><a class="nav-link" href="/vagas">
-								Listar Vagas
+								< Listar Vagas >
 							</a></li>
 						<li class="nav-item"><a class="nav-link" href="/cadastrarVaga">
-								Cadastrar Vaga
+								< Cadastrar Vaga >
 							</a></li>
 
 					</ul>
@@ -83,70 +88,71 @@
 			<h2>Cadastrar candidato:</h2>
 
 			<th:block th:include="mensagemValidacao"></th:block>
-			
+
 			<br>
 
 			<form method="post" th:object="${candidate}">
 
 				<div class="form-group"></div>
-					<div class="row">
+				<div class="row">
 
-						<div class="col">
-							<label for=""><b>Nome do candidato:</b> </label> <input type="text" value=""
-								name="name" class="form-control" placeholder="Nome Completo" required />
-						</div>
-
-						<div class="col">
-							<label for=""><b>RG: </b> </label><input type="text" value="" name="rg"
-								placeholder="Somente números, sem traços ou pontos." class="validate form-control"
-								required />
-						</div>
-
-						<div class="col">
-							<label for=""><b>E-mail:</b> </label> <input type="text" value="" name="email"
-								class="form-control" placeholder="email@email.com" required />
-						</div>
-
+					<div class="col">
+						<label for=""><b>Nome do candidato:</b> </label> <input type="text" value="" name="name"
+							class="form-control" placeholder="Nome Completo" required />
 					</div>
 
+					<div class="col">
+						<label for=""><b>RG: </b> </label><input type="text" value="" name="rg"
+							placeholder="Somente números, sem traços ou pontos." class="validate form-control"
+							required />
+					</div>
 
+					<div class="col">
+						<label for=""><b>E-mail:</b> </label> <input type="text" value="" name="email"
+							class="form-control" placeholder="email@email.com" required />
+					</div>
 
 				</div>
 
-				<button type="submit" class="btn btn-success">Adicionar
-					Candidato</button>
-			</form>
 
 
 		</div>
 
-		<br> <br>
-
-		<h2>Inscritos:</h2>
-
-		<br>
-
-		<table class="table table-hover table-responsive w-auto table-striped">
-			<thead>
-				<tr>
-					<th scope="col">Nome do candidato:</th>
-					<th scope="col">RG:</th>
-					<th scope="col">E-mail:</th>
-				</tr>
-			</thead>
-			<tbody>
-
-				<tr th:each="candidate : ${candidates}">
-					<td><span th:text="${candidate.name}"></span></td>
-					<td><span th:text="${candidate.rg}"></span></td>
-					<td><span th:text="${candidate.email}"></span></td>
-					<td><a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('VC#deletarCandidato').arg(0, candidate.rg)).build()}"><button type="button"
-								class="btn btn-danger">Excluir</button></a></td>
-				</tr>
+		<button type="submit" class="btn btn-success">Adicionar
+			Candidato</button>
+		</form>
 
 
-			</tbody>
-		</table>
+	</div>
+
+	<br> <br>
+
+	<h2>Inscritos:</h2>
+
+	<br>
+
+	<table class="table table-hover table-responsive w-auto table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Nome do candidato:</th>
+				<th scope="col">RG:</th>
+				<th scope="col">E-mail:</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:each="candidate : ${candidates}">
+				<td><span th:text="${candidate.name}"></span></td>
+				<td><span th:text="${candidate.rg}"></span></td>
+				<td><span th:text="${candidate.email}"></span></td>
+				<td><a class="waves-effect waves-light btn-small"
+						th:href="${(#mvc.url('VC#deletarCandidato').arg(0, candidate.rg)).build()}"><button
+							type="button" class="btn btn-danger">Excluir</button></a></td>
+			</tr>
+
+
+		</tbody>
+	</table>
 
 
 	</div>

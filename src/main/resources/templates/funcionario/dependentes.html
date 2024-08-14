@@ -9,8 +9,10 @@
 
 	<title>App RH</title>
 
-	<!-- Bootstrap para o thymeleaf-->
+	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 	<!-- HTML5 shim e Respond.js para suporte no IE8 de elementos HTML5 e media queries -->
 	<!-- ALERTA: Respond.js não funciona se você visualizar uma página file:// -->
@@ -51,7 +53,6 @@
 								< Cadastrar Vaga >
 							</a></li>
 
-
 					</ul>
 				</div>
 			</div>
@@ -59,60 +60,101 @@
 
 	</header>
 
-
 	<div class="container">
 
-
-		<th:block th:include="mensagemValidacao"></th:block>
-
-
-		<form method="post">
-
-			<h1>Atualizar vaga</h1>
+		<h1>Informações do funcionário:</h1>
+		<div class="container" th:each="employee : ${employees}">
 
 			<br>
 
-			<div class="form-group">
-				<label for=""><b>Nome do cargo:</b> </label> <input type="text" class="form-control" value=""
-					name="name" th:attr="value = ${vacancy.name}" required /> <small class="form-text text-muted"><i>*
-						Utilize nomes e
-						termos mais utilizados no mercado.</i></small>
-			</div>
+			<p>
+				<b>Nome:</b> <span th:text="${employee.name}"></span>
+			</p>
+			<p>
+				<b>Data de nascimento:</b> <span th:text="${employee.date}"></span>
+			</p>
+			<p>
+				<b>E-mail:</b> <span th:text="${employee.email}"></span>
+			</p>
 
 
-			<div class="row">
+			<br> <br>
 
-				<div class="col">
-					<div class="form-group">
-						<label for=""><b>Data de expiração:</b></label> <input type="date" class="form-control" value=""
-							name="date" th:attr="value = ${vacancy.date}" required /><small
-							class="form-text text-muted"><i>* Data em que a vaga
-								expira.</i></small>
+			<h2>Cadastrar dependentes</h2>
+
+
+			<form method="post" th:object="${dependent}">
+
+				<div class="form-group">
+					<div class="row">
+
+						<div class="col">
+							<label for=""><b>Nome:</b> </label> <input type="text" value="" name="name"
+								class="form-control" placeholder="Nome Completo" required />
+						</div>
+
+
+						<div class="col">
+							<label for=""><b>CPF: </b> </label><input type="text" value="" name="cpf"
+								placeholder="Somente números, sem traçõs ou pontos." class="validate form-control"
+								required />
+						</div>
+
+
+						<br> <br>
+						<div class="col">
+
+							<div class="form-group">
+								<label for=""><b>Data de nascimento:</b></label> <input type="date" value=""
+									name="birthday" class="form-control" required /> <small
+									class="form-text text-muted"><i>*
+										Dia/Mês/Ano.</i></small>
+							</div>
+						</div>
+
 					</div>
-				</div>
-				<div class="col">
-
-					<div class="form-group">
-						<label for=""><b>Salário:</b></label> R$ <input type="number" class="form-control"
-							pattern="^\d+(\.|\,)\d{2}$" value="" name="salary" th:attr="value = ${vacancy.salary}"
-							required /><small class="form-text text-muted"><i>* Utilize valores
-								considerando vírgula e ponto.</i></small>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for=""><b>Descrição da vaga:</b></label>
-				<textarea class="form-control" name="description" maxlength="254" rows="3"
-					th:text="${vacancy.description}" required></textarea>
-				<small class="form-text text-muted"><i>* Breve resumo da
-						vaga oferecida..</i></small>
-			</div>
 
 
 
-			<button type="submit" class="btn btn-success">Salvar</button>
-		</form>
+
+					<button type="submit" class="btn btn-success">Adicionar
+						Dependente</button>
+			</form>
+
+
+
+		</div>
+
+		<th:block th:include="mensagemValidacao"></th:block>
+
+		<br> <br>
+
+		<h2>Dependentes:</h2>
+
+		<br>
+
+		<table class="table table-hover table-responsive w-auto table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Nome do dependente:</th>
+					<th scope="col">CPF:</th>
+					<th scope="col">Data de nascimento:</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dependent : ${dependents}">
+					<td><span th:text="${dependent.name}"></span></td>
+					<td><span th:text="${dependent.cpf}"></span></td>
+					<td><span th:text="${dependent.birthday}"></span></td>
+					<td><a class="waves-effect waves-light btn-small"
+							th:href="${(#mvc.url('EC#deletarDependente').arg(0, dependent.cpf)).build()}"><button
+								type="button" class="btn btn-danger">Excluir</button></a></td>
+
+
+				</tr>
+			</tbody>
+		</table>
+
 	</div>
 
 
@@ -124,14 +166,13 @@
 	</div>
 
 
+
 	<!--JavaScript bootstrap-->
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
 
 		</script>
-
-
 </body>
 
 </html>

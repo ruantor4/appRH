@@ -19,12 +19,12 @@ public class Vacancy implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long code;
-	
+
 	private String name;
 	private String description;
 	private String date;
 	private String salary;
-	
+
 	@OneToMany(mappedBy = "vacancy", cascade = CascadeType.REMOVE)
 	private List<Candidate> candidates;
 

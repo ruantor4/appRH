@@ -10,9 +10,7 @@ import com.torquato.appRH.models.Vacancy;
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
 	Candidate findByRg(String rg);
-	
 
 	Iterable<Candidate> findByVacancy(Vacancy vacancy);
 
-	
 }
