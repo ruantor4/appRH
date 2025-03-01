@@ -1,12 +1,12 @@
 package com.torquato.appRH.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -15,7 +15,7 @@ import com.torquato.appRH.models.Vacancy;
 import com.torquato.appRH.repositories.CandidateRepository;
 import com.torquato.appRH.repositories.VacancyRepository;
 
-@Controller
+@RestController
 public class VacancyController {
 
 	@Autowired
