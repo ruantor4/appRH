@@ -1,7 +1,5 @@
 package com.torquato.appRH.models;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Dependent implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Dependent {
 
 	@Id
 	@GeneratedValue

@@ -39,12 +39,8 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="/funcionarios">
-								< Funcionários >
-							</a></li>
-						<li class="nav-item"><a class="nav-link" href="/cadastrarFuncionario">
-								< Cadastrar Funcionário >
-							</a>
+						<li class="nav-item"><a class="nav-link" href="/funcionarios"> < Funcionários > </a></li>
+						<li class="nav-item"><a class="nav-link" href="/cadastrarFuncionario"> < Cadastrar Funcionário > </a>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="/vagas">
 								< Listar Vagas >
@@ -63,18 +59,18 @@
 	<div class="container">
 
 		<h1>Informações do funcionário:</h1>
-		<div class="container" th:each="employee : ${employees}">
+		<div class="container">
 
 			<br>
 
 			<p>
-				<b>Nome:</b> <span th:text="${employee.name}"></span>
+				<b>Nome:</b> <span></span>
 			</p>
 			<p>
-				<b>Data de nascimento:</b> <span th:text="${employee.date}"></span>
+				<b>Data de nascimento:</b> <span></span>
 			</p>
 			<p>
-				<b>E-mail:</b> <span th:text="${employee.email}"></span>
+				<b>E-mail:</b> <span></span>
 			</p>
 
 
@@ -83,7 +79,7 @@
 			<h2>Cadastrar dependentes</h2>
 
 
-			<form method="post" th:object="${dependent}">
+			<form method="post">
 
 				<div class="form-group">
 					<div class="row">
@@ -125,7 +121,7 @@
 
 		</div>
 
-		<th:block th:include="mensagemValidacao"></th:block>
+
 
 		<br> <br>
 
@@ -142,13 +138,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="dependent : ${dependents}">
-					<td><span th:text="${dependent.name}"></span></td>
-					<td><span th:text="${dependent.cpf}"></span></td>
-					<td><span th:text="${dependent.birthday}"></span></td>
-					<td><a class="waves-effect waves-light btn-small"
-							th:href="${(#mvc.url('EC#deletarDependente').arg(0, dependent.cpf)).build()}"><button
-								type="button" class="btn btn-danger">Excluir</button></a></td>
+				<tr>
+					<td><span></span></td>
+					<td><span></span></td>
+					<td><span></span></td>
+					<td><a class="waves-effect waves-light btn-small" href="#"><button type="button"
+								class="btn btn-danger">Excluir</button></a></td>
 
 
 				</tr>
@@ -172,7 +167,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
 
-		</script>
+	</script>
 </body>
 
 </html>
