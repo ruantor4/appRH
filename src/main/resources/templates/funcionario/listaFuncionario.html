@@ -57,36 +57,36 @@
 
 
 	<div class="container">
+        <h1>Lista interna de funcionários</h1>
+        <br>
 
-		<h1>Lista interna de funcionários</h1>
+        <table class="table table-hover table-responsive w-auto table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nome:</th>
+                    <th scope="col">Data de nascimento:</th>
+                    <th scope="col">E-mail:</th>
+                    <th scope="col">Ação</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Adicionar Dependente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td><a th:href="@{/detalhesFuncionario/{id}(id=${employee.id})}"><span th:text="${employee.name}"></span></a></td>
+                    <td><span th:text="${employee.date}"></span></td>
+                    <td><span th:text="${employee.email}"></span></td>
+                    <td><a th:href="@{/deletarFuncionario/{id}(id=${employee.id})}" class="waves-effect waves-light btn-small">
+                            <button type="button" class="btn btn-danger">Excluir</button>
+                        </a></td>
+                    <td><a th:href="@{/editarFuncionario/{id}(id=${employee.id})}">
+                            <button type="button" class="btn btn-primary">Editar</button>
+                        </a></td>
+                    <td><a th:href="@{/detalhesFuncionario/{id}(id=${employee.id})}">
+                            <button type="button" class="btn btn-success">Adicionar dependente</button>
+                        </a></td>
+                </tr>
 
-		<br>
-
-		<table class="table table-hover table-responsive w-auto table-striped">
-			<thead>
-				<tr>
-					<th scope="col">Nome:</th>
-					<th scope="col">Data de nascimento:</th>
-					<th scope="col">E-mail:</th>
-					<th scope="col"></th>
-					<th scope="col">Ação</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-
-					<td><a href="#"><span></span></a></td>
-					<td><span></span></td>
-					<td><span></span></td>
-					<td><a href="#" class="waves-effect waves-light btn-small"><button type="button"
-								class="btn btn-danger">Excluir</button></a></td>
-					<td><a href="#"><button type="button" class="btn btn-primary">Editar</button></a></td>
-
-					<td><a href="#"><button type="button" class="btn btn-success">Adicionar
-								dependente</button></a></td>
-
-				</tr>
 			</tbody>
 		</table>
 

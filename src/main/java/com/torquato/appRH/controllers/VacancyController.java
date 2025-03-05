@@ -42,7 +42,7 @@ public class VacancyController {
     }
 
     // Listagem de vagas
-    @GetMapping
+    @GetMapping("/vagas")
     public ModelAndView listVacancies() {
         ModelAndView mv = new ModelAndView("vaga/listaVaga");
         mv.addObject("vacancies", vacancyService.getAllVacancy());
@@ -50,32 +50,69 @@ public class VacancyController {
     }
 
     // Detalhes da vaga e candidatos associados
-    @GetMapping("/{code}")
+    @GetMapping("/vagas/{code}")
     public ModelAndView vacancyDetails(@PathVariable Long code) {
         Vacancy vacancy = vacancyService.getVacancyByCode(code);
         ModelAndView mv = new ModelAndView("vaga/detalhesVaga");
         mv.addObject("vacancy", vacancy);
-        mv.addObject("candidates", candidateService.getCandidatesByVacancy(vacancy));
+        
+        Iterable<Candidate> candidates = candidateService.getCandidatesByVacancy(vacancy);
+        mv.addObject("candidates", candidates);
         return mv;
     }
 
     // Deletar uma vaga
-    @GetMapping("/deletar/{code}")
+    @GetMapping("/deletarVaga")
     public String deleteVacancy(@PathVariable Long code) {
         vacancyService.deleteVacancy(code);
         return "redirect:/vagas";
     }
 
 
+     // Adicionar candidato a uma vaga
+     @PostMapping("/vagas/{code}")
+     public String addCandidate(@PathVariable Long code, @Validated Candidate candidate, BindingResult result,
+                                RedirectAttributes attributes) {
+ 
+         if (result.hasErrors()) {
+             attributes.addFlashAttribute("mensagem", "Verifique os campos");
+             return "redirect:/vagas/" + code;
+         }
+ 
+         if (candidateService.getCandidateByRg(candidate.getRg()) != null) {
+             attributes.addFlashAttribute("mensagem_erro", "RG duplicado, insira novamente");
+             return "redirect:/vagas/" + code;
+         }
+ 
+         Vacancy vacancy = vacancyService.getVacancyByCode(code);
+         candidateService.saveCandidate(candidate, vacancy);
+         attributes.addFlashAttribute("mensagem", "Candidato adicionado com sucesso!");
+         return "redirect:/vagas/" + code;
+     }
+ 
+     // Deletar candidato pelo RG
+     @GetMapping("/deletarCandidato")
+     public String deleteCandidate(@PathVariable String rg) {
+         Candidate candidate = candidateService.getCandidateByRg(rg);
+         if (candidate != null) {
+             Long vacancyCode = candidate.getVacancy().getCode();
+             candidateService.deleteCandidate(rg);
+             return "redirect:/vagas/" + vacancyCode;
+         }
+         return "redirect:/vagas";
+     }
+
     // Editar uma vaga
-    @GetMapping("/editar/{code}")
+    @GetMapping("/editar-vaga")
     public ModelAndView editVacancy(@PathVariable Long code) {
         ModelAndView mv = new ModelAndView("vaga/update-vaga");
-        mv.addObject("vacancy", vacancyService.getVacancyByCode(code));
+        Vacancy vacancy = vacancyService.getVacancyByCode(code);
+        mv.addObject("vacancy", vacancy);
         return mv;
     }
 
-    @PostMapping("/editar")
+    // POST do FORM que atualiza a vaga
+    @PostMapping("/editar-vaga")
     public String updateVacancy(@Validated Vacancy vacancy, BindingResult result, RedirectAttributes attributes) {
         vacancyService.saveVacancy(vacancy);
         attributes.addFlashAttribute("success", "Vaga alterada com sucesso!");

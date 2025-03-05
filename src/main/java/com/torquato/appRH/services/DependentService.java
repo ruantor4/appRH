@@ -1,9 +1,9 @@
 package com.torquato.appRH.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.torquato.appRH.models.Dependent;
 import com.torquato.appRH.models.Employee;
 import com.torquato.appRH.repositories.DependentRepository;
@@ -18,32 +18,45 @@ public class DependentService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public String saveDependent(long employeeId, Dependent dependent, BindingResult result,
-            RedirectAttributes attributes) {
-        if (result.hasErrors()) {
-            attributes.addFlashAttribute("mensagem", "Verifique os campos");
-            return "redirect:/funcionarios/" + employeeId + "/dependentes";
-        }
+    public String addDependent(Long id, Dependent dependent) {
+        // Verifica se já existe um dependente com o mesmo CPF
         if (dependentRepository.findByCpf(dependent.getCpf()) != null) {
-            attributes.addFlashAttribute("mensagem_erro", "CPF duplicado");
-            return "redirect:/funcionarios/" + employeeId + "/dependentes";
+            return "CPF duplicado";
         }
-        Employee employee = employeeRepository.findById(employeeId);
+
+        // Busca o funcionário pelo ID usando Optional para evitar NullPointerException
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if (optionalEmployee.isEmpty()) {
+            return "Funcionário não encontrado";
+        }
+
+        // Associa o dependente ao funcionário e salva
+        Employee employee = optionalEmployee.get();
         dependent.setEmployee(employee);
         dependentRepository.save(dependent);
-        attributes.addFlashAttribute("mensagem", "Dependente adicionado com sucesso!");
-        return "redirect:/funcionarios/" + employeeId + "/dependentes";
+
+        return "Dependente adicionado com sucesso";
     }
 
-    public String deleteDependent(String cpf) {
+    public Long deleteDependent(String cpf) {
+        // Busca o dependente pelo CPF
         Dependent dependent = dependentRepository.findByCpf(cpf);
-        long employeeId = dependent.getEmployee().getId();
+        
+        if (dependent == null) {
+            throw new RuntimeException("Dependente não encontrado!");
+        }
+
+        // Obtém o ID do funcionário antes de deletar o dependente
+        Long employeeId = dependent.getEmployee().getId();
+
+        // Exclui o dependente
         dependentRepository.delete(dependent);
-        return "redirect:/funcionarios/" + employeeId + "/dependentes";
+
+        // Retorna o ID do funcionário para redirecionamento
+        return employeeId;
     }
 
-    public Iterable<Dependent> findDependentsByEmployee(Employee employee){
+    public Iterable<Dependent> findDependentsByEmployee(Employee employee) {
         return dependentRepository.findByEmployee(employee);
     }
 }
-

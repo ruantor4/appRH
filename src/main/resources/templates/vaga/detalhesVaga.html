@@ -106,7 +106,7 @@
 
 						<div class="col">
 							<label for=""><b>Nome do candidato:</b> </label> <input
-								type="text" value="" name="nomeCandidato" class="form-control"
+								type="text" value="" name="candidateName" class="form-control"
 								placeholder="Nome Completo" required />
 						</div>
 
@@ -117,7 +117,7 @@
 						</div>
 
 						<div class="col">
-							<label for=""><b>E-mail:</b> </label> <input type="text" value=""
+							<label for=""><b>E-mail:</b> </label> <input type="email" value=""
 								name="email" class="form-control" placeholder="email@email.com"
 								required />
 						</div>
@@ -152,7 +152,7 @@
 			<tbody>
 
 				<tr th:each="candidato : ${candidatos}">
-					<td><span th:text="${candidato.nomeCandidato}"></span></td>
+					<td><span th:text="${candidato.candidateName}"></span></td>
 					<td><span th:text="${candidato.rg}"></span></td>
 					<td><span th:text="${candidato.email}"></span></td>
 					<td><a class="waves-effect waves-light btn-small"
