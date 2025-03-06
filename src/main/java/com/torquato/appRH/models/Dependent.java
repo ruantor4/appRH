@@ -10,24 +10,54 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Representa um dependente de um {@link Employee} no sistema de RH.
+ * 
+ * <p>
+ * Cada dependente está vinculado a um funcionário e possui informações
+ * como nome, CPF e data de nascimento.
+ * </p>
+ * 
+ * <p>
+ * Esta classe utiliza Lombok para gerar automaticamente métodos como 
+ * getters, setters, `equals()`, `hashCode()` e `toString()`.
+ * </p>
+ * 
+ * @author Ruan Torquato
+ * @version 1.0
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Dependent {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    /**
+     * Identificador único do dependente.
+     */
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	private String name;
+    /**
+     * Nome completo do dependente.
+     */
+    private String name;
 
-	@Column(unique = true)
-	private String cpf;
+    /**
+     * CPF do dependente. Deve ser único no sistema.
+     */
+    @Column(unique = true)
+    private String cpf;
 
-	private String birthday;
+    /**
+     * Data de nascimento do dependente.
+     */
+    private String birthday;
 
-	@ManyToOne
-	private Employee employee;
-
+    /**
+     * Funcionário ao qual o dependente está vinculado.
+     */
+    @ManyToOne
+    private Employee employee;
 }
